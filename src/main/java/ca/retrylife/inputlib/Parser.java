@@ -55,10 +55,6 @@ public class Parser {
                 }
             }
 
-            // Hex, binary, double, and float cannot co-exist
-            // THis is used to track what is "active"
-            int numberModifiers = 0;
-
             // Search through the data
             for (char c : data.toCharArray()) {
 
@@ -70,14 +66,13 @@ public class Parser {
 
                 // If a character that is not valid in a number is found, remove possibility of
                 // number
-                if (!Character.isDigit(c) && c != '_' && c != 'f' && c != 'x' && c != 'b' && c != '.') {
+                if (!isHex && !Character.isDigit(c) && c != '_' && c != 'f' && c != 'x' && c != 'b' && c != '.') {
                     isNumber = false;
                 }
 
                 // Check for a character that might make this a float
                 if (c == 'f') {
                     isFloat = true;
-                    numberModifiers += 1;
                 }
 
                 // Check for a character that might make this a double
@@ -88,21 +83,11 @@ public class Parser {
                 // Check for a character that would make this a hex number
                 if (c == 'x') {
                     isHex = true;
-                    numberModifiers += 1;
                 }
 
                 // Check for a character that would make this a binary number
                 if (c == 'b') {
                     isBinary = true;
-                    numberModifiers += 1;
-                }
-
-                // Handle having multiple number modifiers
-                if (numberModifiers > 1) {
-                    isNumber = false;
-                }
-                if (isHex && numberModifiers == 1) {
-                    isNumber = false;
                 }
 
             }
@@ -119,7 +104,7 @@ public class Parser {
                     type = Types.BOOLEAN;
                 } else {
                     if (isNumber) {
-                        if (isFloat) {
+                        if (isFloat && !isHex) {
                             type = Types.FLOAT;
                         } else if (isDouble) {
                             type = Types.DOUBLE;
@@ -141,7 +126,16 @@ public class Parser {
             case CHARACTER:
                 return new Token(data.charAt(0));
             case INTEGER:
-                return new Token(Integer.parseInt(data, (isBinary) ? 2 : (isHex) ? 16 : 10));
+                // Determine the base
+                int base = ((isBinary) ? 2 : ((isHex) ? 16 : 10));
+
+                // Handle base 10
+                if (base == 10) {
+                    return new Token(Integer.parseInt(data, base));
+                } else {
+                    // Base 2 and 16 require a stripped prefix
+                    return new Token(Integer.parseInt(data.substring(2), base));
+                }
             case DOUBLE:
                 // Handles a java parser bug
                 return new Token(Double.parseDouble(data.replaceAll("_", "")));
@@ -149,7 +143,7 @@ public class Parser {
                 // Handles a java parser bug
                 return new Token(Float.parseFloat(data.replaceAll("_", "").replaceAll("f", "")));
             case BOOLEAN:
-                return new Token(validBooleanStrings.get(data));
+                return new Token(validBooleanStrings.get(data.toLowerCase()));
         }
 
         return null;

@@ -131,11 +131,21 @@ public class Token {
 
     /**
      * Check if this token has its value as a specific type
+     * 
      * @param t Type
      * @return Can get value as this type
      */
     public boolean hasType(Types t) {
         return primaryType.canConvertTo(t);
+    }
+
+    /**
+     * Gets the type of the original data. This is generally only for advanced use
+     * 
+     * @return Primary type of the Token
+     */
+    public Types getPrimaryType() {
+        return primaryType;
     }
 
     /**
