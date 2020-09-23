@@ -4,30 +4,30 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 /**
- * Types is an enum-style class containing a list of (mostly) primitive Java
- * types, and many functions to convert between them all.
+ * Types is an enum containing a list of (mostly) primitive Java types, and many
+ * functions to convert between them all.
  * 
  * Example: Types.BOOLEAN.toCharacter(true) == 'T'
  */
-public class Types {
+public enum Types {
 
     // String type
-    public static Types STRING = new Types("String", String.class);
+    STRING("String", String.class),
 
     // Character type
-    public static Types CHARACTER = new Types("Character", Character.class);
+    CHARACTER("Character", Character.class),
 
     // Integer type
-    public static Types INTEGER = new Types("Integer", Integer.class);
+    INTEGER("Integer", Integer.class),
 
     // Double type
-    public static Types DOUBLE = new Types("Double", Double.class);
+    DOUBLE("Double", Double.class),
 
     // Float type
-    public static Types FLOAT = new Types("Float", Float.class);
+    FLOAT("Float", Float.class),
 
     // Boolean type
-    public static Types BOOLEAN = new Types("Boolean", Boolean.class);
+    BOOLEAN("Boolean", Boolean.class);
 
     // Configure all the conversions
     static {
@@ -106,7 +106,7 @@ public class Types {
 
         // Character -> Boolean
         CHARACTER.addConversion(BOOLEAN, (c) -> {
-            return c != null && Character.isDefined((Character) c);
+            return c != null && Character.isDefined((Character) c) && !((Character) c).equals('0');
         });
 
         // Integer -> String
@@ -252,6 +252,7 @@ public class Types {
 
     // Data about self
     private final String name;
+    public final String ID;
     private final Class clazz;
 
     // Converter map
@@ -265,6 +266,7 @@ public class Types {
      */
     private Types(String name, Class clazz) {
         this.name = name;
+        this.ID = this.name;
         this.clazz = clazz;
         this.converterMap = new HashMap<>();
     }

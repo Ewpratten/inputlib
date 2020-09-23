@@ -32,7 +32,7 @@ public class Prompt {
         String line = in.nextLine();
 
         // Parse the data into a token
-        return parseToToken(line);
+        return Parser.parseToToken(line);
     }
 
     public String promptString(String prompt, boolean oneLine) {
@@ -44,7 +44,7 @@ public class Prompt {
             Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
 
             // If the input is valid, return
-            if (input.hasType(Types.STRING) && input.getString().length() > 0) {
+            if (input != null && input.hasType(Types.STRING) && input.getString().length() > 0) {
                 return input.getString();
             }
         }
@@ -141,7 +141,7 @@ public class Prompt {
             Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
 
             // If the input is valid, return
-            if (input.hasType(Types.INTEGER) && input.getInteger() != null) {
+            if (input != null && input.hasType(Types.INTEGER) && input.getInteger() != null) {
                 return input.getInteger();
             }
 
@@ -233,7 +233,7 @@ public class Prompt {
             Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
 
             // If the input is valid, return
-            if (input.hasType(Types.DOUBLE) && input.getDouble() != null) {
+            if (input != null && input.hasType(Types.DOUBLE) && input.getDouble() != null) {
                 return input.getDouble();
             }
 
@@ -255,7 +255,7 @@ public class Prompt {
             Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
 
             // If the input is valid, return
-            if (input.hasType(Types.FLOAT) && input.getFloat() != null) {
+            if (input != null && input.hasType(Types.FLOAT) && input.getFloat() != null) {
                 return input.getFloat();
             }
 
@@ -277,7 +277,7 @@ public class Prompt {
             Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
 
             // If the input is valid, return
-            if (input.hasType(Types.BOOLEAN) && input.getBoolean() != null) {
+            if (input != null && input.hasType(Types.BOOLEAN) && input.getBoolean() != null) {
                 return input.getBoolean();
             }
 
@@ -288,10 +288,6 @@ public class Prompt {
 
     public boolean promptBoolean(String prompt) {
         return promptBoolean(prompt, false);
-    }
-
-    private Token parseToToken(String data) {
-        return null;
     }
 
 }
