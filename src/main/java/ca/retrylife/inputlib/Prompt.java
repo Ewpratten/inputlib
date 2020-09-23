@@ -7,21 +7,40 @@ import java.util.Scanner;
 import ca.retrylife.inputlib.types.Token;
 import ca.retrylife.inputlib.types.Types;
 
+/**
+ * Prompt is the primary class of InputLib. All general functions are provided
+ * here, and it wraps many annoying type-safety checks in simple functions.
+ */
 public class Prompt {
 
     // IO
     private Scanner in;
     private PrintStream out;
 
+    /**
+     * Create a Prompt using stdin/stdout for I/O
+     */
     public Prompt() {
         this(System.in, System.out);
     }
 
+    /**
+     * Create a Prompt from two streams
+     * 
+     * @param in  Input
+     * @param out Output
+     */
     public Prompt(InputStream in, PrintStream out) {
         this.in = new Scanner(in);
         this.out = out;
     }
 
+    /**
+     * (Advanced Use Only) Get a raw parser token from the user
+     * 
+     * @param prompt Prompt message
+     * @return Raw token
+     */
     public Token promptToken(String prompt) {
 
         // Print prompt
@@ -35,6 +54,13 @@ public class Prompt {
         return Parser.parseToToken(line);
     }
 
+    /**
+     * Get a String from the user
+     * 
+     * @param prompt  Prompt message
+     * @param oneLine Should this be printed on a single line?
+     * @return User-supplied string
+     */
     public String promptString(String prompt, boolean oneLine) {
 
         // Get a token, and its string until the data is valid
@@ -50,10 +76,23 @@ public class Prompt {
         }
     }
 
+    /**
+     * Get a String from the user
+     * 
+     * @param prompt Prompt message
+     * @return User-supplied string
+     */
     public String promptString(String prompt) {
         return promptString(prompt, false);
     }
 
+    /**
+     * Get a string spanning multiple lines from the user. This uses an ED-like
+     * interface, and tells the user how to use it
+     * 
+     * @param prompt Prompt message
+     * @return User-supplied string
+     */
     public String promptMultiLineString(String prompt) {
 
         // Print the user prompt
@@ -90,14 +129,34 @@ public class Prompt {
         return totalInput.toString();
     }
 
+    /**
+     * Prompt a single character from the user
+     * 
+     * @param prompt  Prompt message
+     * @param oneLine Should this be printed on a single line?
+     * @return User-supplied character
+     */
     public char promptCharacter(String prompt, boolean oneLine) {
         return promptString(prompt, oneLine).charAt(0);
     }
 
+    /**
+     * Prompt a single character from the user
+     * 
+     * @param prompt Prompt message
+     * @return User-supplied character
+     */
     public char promptCharacter(String prompt) {
         return promptCharacter(prompt, false);
     }
 
+    /**
+     * Prompt the user to pick one of the allowed characters
+     * 
+     * @param prompt       Prompt message
+     * @param allowedChars Allowed characters
+     * @return User-supplied character
+     */
     public char promptCharacterSelection(String prompt, char... allowedChars) {
 
         // Build the allowed chars list into a nice string
@@ -132,6 +191,14 @@ public class Prompt {
         }
     }
 
+    /**
+     * Prompt an integer from the user (they can enter decimal, binary, or
+     * hexadecimal)
+     * 
+     * @param prompt  Prompt message
+     * @param oneLine Should this be printed on a single line?
+     * @return User-supplied integer
+     */
     public int promptInteger(String prompt, boolean oneLine) {
 
         // Get a token, and its value until the data is valid
@@ -150,10 +217,24 @@ public class Prompt {
         }
     }
 
+    /**
+     * Prompt an integer from the user (they can enter decimal, binary, or
+     * hexadecimal)
+     * 
+     * @param prompt Prompt message
+     * @return User-supplied integer
+     */
     public int promptInteger(String prompt) {
         return promptInteger(prompt, false);
     }
 
+    /**
+     * Prompt the user to select one of multiple allowed integers
+     * 
+     * @param prompt      Prompt message
+     * @param allowedInts Allowed integers for the user to pick
+     * @return User-supplied integer
+     */
     public int promptIntegerSelection(String prompt, int... allowedInts) {
 
         // Build the allowed ints list into a nice string
@@ -188,13 +269,22 @@ public class Prompt {
         }
     }
 
+    /**
+     * Prompt the user to pick an integer between (and including) the min and max
+     * number
+     * 
+     * @param prompt Prompt message
+     * @param min    Minimum number
+     * @param max    Maximum number
+     * @return User-supplied integer
+     */
     public int promptIntegerRangeSelection(String prompt, int min, int max) {
 
         // Get an int until an allowed int is found
         while (true) {
 
             // Get input
-            int input = promptInteger(String.format("%s%nselect [%d...%d] ",prompt, min, max), true);
+            int input = promptInteger(String.format("%s%nselect [%d...%d] ", prompt, min, max), true);
 
             // Check if the input is valid
             if (min <= input && input <= max) {
@@ -206,6 +296,13 @@ public class Prompt {
         }
     }
 
+    /**
+     * Prompt the user to pick from a list of items
+     * 
+     * @param title   Title of the list
+     * @param options Options
+     * @return The selected array element
+     */
     public String promptList(String title, String... options) {
 
         // Build the options list
@@ -224,6 +321,13 @@ public class Prompt {
         return options[promptIntegerRangeSelection(prompt.toString(), 0, options.length - 1)];
     }
 
+    /**
+     * Prompt a double from the user
+     * 
+     * @param prompt  Prompt message
+     * @param oneLine Should this be printed on a single line?
+     * @return User-supplied double
+     */
     public double promptDouble(String prompt, boolean oneLine) {
 
         // Get a token, and its value until the data is valid
@@ -242,10 +346,24 @@ public class Prompt {
         }
     }
 
+    /**
+     * Prompt a double from the user
+     * 
+     * @param prompt Prompt message
+     * @return User-supplied double
+     */
     public double promptDouble(String prompt) {
         return promptDouble(prompt, false);
     }
 
+    /**
+     * Prompt a float from the user (they can optionally add an "f" to the end of
+     * their input)
+     * 
+     * @param prompt  Prompt message
+     * @param oneLine Should this be printed on a single line?
+     * @return User-supplied float
+     */
     public float promptFloat(String prompt, boolean oneLine) {
 
         // Get a token, and its value until the data is valid
@@ -264,10 +382,25 @@ public class Prompt {
         }
     }
 
+    /**
+     * Prompt a float from the user (they can optionally add an "f" to the end of
+     * their input)
+     * 
+     * @param prompt Prompt message
+     * @return User-supplied float
+     */
     public float promptFloat(String prompt) {
         return promptFloat(prompt, false);
     }
 
+    /**
+     * Prompt a boolean from the user (This can be one of: y, n, yes, no, t, f,
+     * true, false, accept, deny)
+     * 
+     * @param prompt  Prompt message
+     * @param oneLine Should this be printed on a single line?
+     * @return User-supplied boolean
+     */
     public boolean promptBoolean(String prompt, boolean oneLine) {
 
         // Get a token, and its value until the data is valid
@@ -286,6 +419,13 @@ public class Prompt {
         }
     }
 
+    /**
+     * Prompt a boolean from the user (This can be one of: y, n, yes, no, t, f,
+     * true, false, accept, deny)
+     * 
+     * @param prompt Prompt message
+     * @return User-supplied boolean
+     */
     public boolean promptBoolean(String prompt) {
         return promptBoolean(prompt, false);
     }
