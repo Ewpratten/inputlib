@@ -28,7 +28,7 @@ See [ultralight.retrylife.ca](https://ultralight.retrylife.ca/?a=inputlib&g=ca.r
 
 ## Usage
 
-With InputLib loaded into your project, usage is fairly simple. The library is centered around the [`ca.retrylife.inputlib.Prompt`](https://ewpratten.retylife.ca/ca/retrylife/inputlib/Prompt.html) class.
+With InputLib loaded into your project, usage is fairly simple. The library is centered around the [`ca.retrylife.inputlib.Prompt`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html) class.
 
 ```java
 import ca.retrylife.inputlib.Prompt;
@@ -55,12 +55,12 @@ boolean b = myPrompt.promptBoolean("message");
 
 Some of these prompt functions support "fancy inputs". These are some quality-of-life additions to the InputLib parser I occasionally use:
 
- - [`promptInteger`](https://ewpratten.retylife.ca/ca/retrylife/inputlib/Prompt.html#promptInteger(java.lang.String)) will accept binary and hex strings in the following format:
+ - [`promptInteger`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptInteger(java.lang.String)) will accept binary and hex strings in the following format:
    - Binary: `0b0101101`
    - Hexadecimal: `0xdeadbeef`
- - [`promptInteger`](https://ewpratten.retylife.ca/ca/retrylife/inputlib/Prompt.html#promptInteger(java.lang.String)), [`promptDouble`](https://ewpratten.retylife.ca/ca/retrylife/inputlib/Prompt.html#promptDouble(java.lang.String)), and [`promptFloat`](https://ewpratten.retylife.ca/ca/retrylife/inputlib/Prompt.html#promptFloat(java.lang.String)) all accept underscores as separators, just like Java does.
- - [`promptFloat`](https://ewpratten.retylife.ca/ca/retrylife/inputlib/Prompt.html#promptFloat(java.lang.String)) allows the user to add the letter `f` as a suffix, just like Java does.
- - [`promptBoolean`](https://ewpratten.retylife.ca/ca/retrylife/inputlib/Prompt.html#promptBoolean(java.lang.String)) accepts the following inputs, and converts them to booleans:
+ - [`promptInteger`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptInteger(java.lang.String)), [`promptDouble`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptDouble(java.lang.String)), and [`promptFloat`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptFloat(java.lang.String)) all accept underscores as separators, just like Java does.
+ - [`promptFloat`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptFloat(java.lang.String)) allows the user to add the letter `f` as a suffix, just like Java does.
+ - [`promptBoolean`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptBoolean(java.lang.String)) accepts the following inputs, and converts them to booleans:
    - `y`
    - `n`
    - `yes`
@@ -71,3 +71,18 @@ Some of these prompt functions support "fancy inputs". These are some quality-of
    - `false`
    - `accept`
    - `deny`
+
+A few other functions exist for allowing a user to make a selection from a list:
+
+```java
+// Make the user pick one of many characters
+char selection = myPrompt.promptCharacterSelection("Pick one", 'a', 'b', 'c');
+// Make the user pick a number between two other numbers
+int selection = myPrompt.promptIntegerRangeSelection​("Pick between", 1, 10);
+// Make the user pick one of many integers
+int selection = myPrompt.promptIntegerSelection​("Pick one", 1, 10, 100, 120);
+// Make the user pick an item from a list
+String preference = myPrompt.promptList("Which is better", "cats", "dogs", "nerf guns");
+```
+
+Finally, the [`promptMultiLineString​`](https://ewpratten.retylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptMultiLineString(java.lang.String)) function can be used to get a string from the user that spans multiple lines of input.
