@@ -1,4 +1,4 @@
-# InputLib [![Maven Repository](https://ultralight.retrylife.ca:/api/artifact/ca.retrylife/inputlib/shield?d=ultralight.retrylife.ca)](https://ultralight.retrylife.ca/?a=inputlib&g=ca.retrylife)
+# InputLib [![Maven Repository](https://ultralight.retrylife.ca:/api/artifact/ca.retrylife/inputlib/shield?d=ultralight.retrylife.ca)](https://ultralight.retrylife.ca/?a=inputlib&g=ca.retrylife) ![Build library](https://github.com/Ewpratten/inputlib/workflows/Build%20library/badge.svg)
 
 InputLib is a small and easy-to-use Java library for working with text-based user inputs in a terminal. This library was originally built to drastically speed up my development time when working on those annoying "whats your name?" programs everyone seems to do in intro Computer Science courses. This repo contains "version 2", which is set up to handle more datatypes, has a faster parser (the old parser was ANTLR4-based), and provides a very simple interface.
 
