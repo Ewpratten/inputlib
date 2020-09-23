@@ -394,8 +394,8 @@ public class Prompt {
     }
 
     /**
-     * Prompt a boolean from the user (This can be one of: y, n, yes, no, t, f,
-     * true, false, accept, deny)
+     * Prompt a boolean from the user (This can be one of: yes, no, true, false,
+     * accept, deny)
      * 
      * @param prompt  Prompt message
      * @param oneLine Should this be printed on a single line?
@@ -420,8 +420,8 @@ public class Prompt {
     }
 
     /**
-     * Prompt a boolean from the user (This can be one of: y, n, yes, no, t, f,
-     * true, false, accept, deny)
+     * Prompt a boolean from the user (This can be one of: yes, no, true, false,
+     * accept, deny)
      * 
      * @param prompt Prompt message
      * @return User-supplied boolean

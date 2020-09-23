@@ -14,12 +14,8 @@ public class Parser {
     public static HashMap<String, Boolean> VALID_BOOLEANS_MAP = new HashMap<>();
 
     static {
-        VALID_BOOLEANS_MAP.put("y", true);
-        VALID_BOOLEANS_MAP.put("n", false);
         VALID_BOOLEANS_MAP.put("yes", true);
         VALID_BOOLEANS_MAP.put("no", false);
-        VALID_BOOLEANS_MAP.put("t", true);
-        VALID_BOOLEANS_MAP.put("f", false);
         VALID_BOOLEANS_MAP.put("true", true);
         VALID_BOOLEANS_MAP.put("false", false);
         VALID_BOOLEANS_MAP.put("accept", true);
