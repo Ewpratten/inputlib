@@ -3,9 +3,6 @@ package ca.retrylife.inputlib.types;
 import java.util.HashMap;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /**
  * Types is an enum-style class containing a list of (mostly) primitive Java
  * types, and many functions to convert between them all.
@@ -258,7 +255,7 @@ public class Types {
     private final Class clazz;
 
     // Converter map
-    private HashMap<Types, Function<@Nonnull Object, @Nullable Object>> converterMap;
+    private HashMap<Types, Function<Object, Object>> converterMap;
 
     /**
      * Create a type
@@ -278,7 +275,7 @@ public class Types {
      * @param t         Type to convert to
      * @param converter Function to handle conversion
      */
-    private void addConversion(Types t, Function<@Nonnull Object, @Nullable Object> converter) {
+    private void addConversion(Types t, Function<Object, Object> converter) {
         this.converterMap.put(t, converter);
     }
 
@@ -308,7 +305,7 @@ public class Types {
      * @return Can be converted?
      */
     public boolean canConvertTo(Types t) {
-        return this.converterMap.containsKey(t);
+        return this.converterMap.containsKey(t) || isType(t);
     }
 
     /**
@@ -317,7 +314,7 @@ public class Types {
      * @param t Type to convert to
      * @return Converter
      */
-    public Function<@Nonnull Object, @Nullable Object> getConverterFor(Types t) {
+    public Function<Object, Object> getConverterFor(Types t) {
         return this.converterMap.get(t);
     }
 
