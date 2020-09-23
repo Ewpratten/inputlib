@@ -10,6 +10,22 @@ import ca.retrylife.inputlib.types.Types;
  */
 public class Parser {
 
+    // List of every valid boolean string
+    public static HashMap<String, Boolean> VALID_BOOLEANS_MAP = new HashMap<>();
+
+    static {
+        VALID_BOOLEANS_MAP.put("y", true);
+        VALID_BOOLEANS_MAP.put("n", false);
+        VALID_BOOLEANS_MAP.put("yes", true);
+        VALID_BOOLEANS_MAP.put("no", false);
+        VALID_BOOLEANS_MAP.put("t", true);
+        VALID_BOOLEANS_MAP.put("f", false);
+        VALID_BOOLEANS_MAP.put("true", true);
+        VALID_BOOLEANS_MAP.put("false", false);
+        VALID_BOOLEANS_MAP.put("accept", true);
+        VALID_BOOLEANS_MAP.put("deny", false);
+    }
+
     /**
      * Parses a String into a Token
      * 
@@ -23,19 +39,6 @@ public class Parser {
         // rules
         Types type = null;
 
-        // List of every valid boolean string
-        HashMap<String, Boolean> validBooleanStrings = new HashMap<>();
-        validBooleanStrings.put("y", true);
-        validBooleanStrings.put("n", false);
-        validBooleanStrings.put("yes", true);
-        validBooleanStrings.put("no", false);
-        validBooleanStrings.put("t", true);
-        validBooleanStrings.put("f", false);
-        validBooleanStrings.put("true", true);
-        validBooleanStrings.put("false", false);
-        validBooleanStrings.put("accept", true);
-        validBooleanStrings.put("deny", false);
-
         // Number types
         boolean isHex = false;
         boolean isBinary = false;
@@ -48,7 +51,7 @@ public class Parser {
 
             // Check if the data fits in the valid boolean list
             boolean mightBeBoolean = false;
-            for (String validBooleanString : validBooleanStrings.keySet()) {
+            for (String validBooleanString : VALID_BOOLEANS_MAP.keySet()) {
                 if (data.equals(validBooleanString)) {
                     mightBeBoolean = true;
                     break;
@@ -143,7 +146,7 @@ public class Parser {
                 // Handles a java parser bug
                 return new Token(Float.parseFloat(data.replaceAll("_", "").replaceAll("f", "")));
             case BOOLEAN:
-                return new Token(validBooleanStrings.get(data.toLowerCase()));
+                return new Token(VALID_BOOLEANS_MAP.get(data.toLowerCase()));
         }
 
         return null;
