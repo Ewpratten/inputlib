@@ -6,6 +6,12 @@ import java.util.function.Function;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * Types is an enum-style class containing a list of (mostly) primitive Java
+ * types, and many functions to convert between them all.
+ * 
+ * Example: Types.BOOLEAN.toCharacter(true) == 'T'
+ */
 public class Types {
 
     // String type
@@ -254,32 +260,73 @@ public class Types {
     // Converter map
     private HashMap<Types, Function<@Nonnull Object, @Nullable Object>> converterMap;
 
+    /**
+     * Create a type
+     * 
+     * @param name  Unique type name
+     * @param clazz Type class
+     */
     private Types(String name, Class clazz) {
         this.name = name;
         this.clazz = clazz;
         this.converterMap = new HashMap<>();
     }
 
+    /**
+     * Add a conversion for the type
+     * 
+     * @param t         Type to convert to
+     * @param converter Function to handle conversion
+     */
     private void addConversion(Types t, Function<@Nonnull Object, @Nullable Object> converter) {
         this.converterMap.put(t, converter);
     }
 
+    /**
+     * Check if this is a specific type
+     * 
+     * @param t Type to check if this is
+     * @return Is this type the same?
+     */
     public boolean isType(Types t) {
         return getName().equals(t.getName());
     }
 
+    /**
+     * Get this type's name
+     * 
+     * @return name;
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Check if this type can be converted to another type
+     * 
+     * @param t Type to convert to
+     * @return Can be converted?
+     */
     public boolean canConvertTo(Types t) {
         return this.converterMap.containsKey(t);
     }
 
+    /**
+     * Get the internal converter for a specific type
+     * 
+     * @param t Type to convert to
+     * @return Converter
+     */
     public Function<@Nonnull Object, @Nullable Object> getConverterFor(Types t) {
         return this.converterMap.get(t);
     }
 
+    /**
+     * Convert a value of this type to a String
+     * 
+     * @param value Value of this type
+     * @return String for that value
+     */
     public String toString(Object value) {
         if (isType(STRING)) {
             // Handle conversion to self
@@ -294,6 +341,12 @@ public class Types {
         }
     }
 
+    /**
+     * Convert a value of this type to a Character
+     * 
+     * @param value Value of this type
+     * @return Character for that value
+     */
     public Character toCharacter(Object value) {
         if (isType(CHARACTER)) {
             // Handle conversion to self
@@ -308,6 +361,12 @@ public class Types {
         }
     }
 
+    /**
+     * Convert a value of this type to an Integer
+     * 
+     * @param value Value of this type
+     * @return Integer for that value
+     */
     public Integer toInteger(Object value) {
         if (isType(INTEGER)) {
             // Handle conversion to self
@@ -322,6 +381,12 @@ public class Types {
         }
     }
 
+    /**
+     * Convert a value of this type to a Double
+     * 
+     * @param value Value of this type
+     * @return Double for that value
+     */
     public Double toDouble(Object value) {
         if (isType(DOUBLE)) {
             // Handle conversion to self
@@ -336,6 +401,12 @@ public class Types {
         }
     }
 
+    /**
+     * Convert a value of this type to a Float
+     * 
+     * @param value Value of this type
+     * @return Float for that value
+     */
     public Float toFloat(Object value) {
         if (isType(FLOAT)) {
             // Handle conversion to self
@@ -350,6 +421,12 @@ public class Types {
         }
     }
 
+    /**
+     * Convert a value of this type to a Boolean
+     * 
+     * @param value Value of this type
+     * @return Boolean for that value
+     */
     public Boolean toBoolean(Object value) {
         if (isType(BOOLEAN)) {
             // Handle conversion to self
