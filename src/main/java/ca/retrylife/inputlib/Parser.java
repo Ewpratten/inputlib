@@ -49,6 +49,12 @@ public class Parser {
             boolean isFloat = false;
             boolean isDouble = false;
 
+            // If the data is empty, skip this whole thing
+            if (data.length() == 0) {
+                type = Types.STRING;
+                break typeFinder;
+            }
+
             // Check if the data fits in the valid boolean list
             boolean mightBeBoolean = false;
             for (String validBooleanString : VALID_BOOLEANS_MAP.keySet()) {
@@ -69,36 +75,58 @@ public class Parser {
 
                 // If a character that is not valid in a number is found, remove possibility of
                 // number
-                if (!isHex && !Character.isDigit(c) && c != '_' && c != 'f' && c != 'x' && c != 'b' && c != '.') {
+                if (!isHex && !Character.isDigit(c) && Character.toLowerCase(c) != '_'
+                        && Character.toLowerCase(c) != 'f' && Character.toLowerCase(c) != 'x'
+                        && Character.toLowerCase(c) != 'b' && Character.toLowerCase(c) != '.') {
                     isNumber = false;
                 }
 
                 // Check for a character that might make this a float
-                if (c == 'f') {
+                if (Character.toLowerCase(c) == 'f') {
                     isFloat = true;
                 }
 
                 // Check for a character that might make this a double
-                if (c == '.') {
+                if (Character.toLowerCase(c) == '.') {
                     isDouble = true;
                 }
 
                 // Check for a character that would make this a hex number
-                if (c == 'x') {
+                if (Character.toLowerCase(c) == 'x') {
                     isHex = true;
                 }
 
                 // Check for a character that would make this a binary number
-                if (c == 'b') {
+                if (Character.toLowerCase(c) == 'b') {
                     isBinary = true;
                 }
 
+            }
+
+            // There is an edge case where the number chars are interpreted as strings when
+            // they should be chars.
+            if (data.length() == 1) {
+                String[] issueChars = new String[] { "_", "x", "b", "." };
+                for (String ic : issueChars) {
+                    if (data.toLowerCase().equals(ic)) {
+                        type = Types.STRING;
+                        break typeFinder;
+                    }
+                }
             }
 
             // Use logic to determine the type
             if (data.length() == 1) {
                 if (mightBeBoolean) {
                     type = Types.BOOLEAN;
+                } else if (isNumber) {
+                    if (isFloat && !isHex) {
+                        type = Types.FLOAT;
+                    } else if (isDouble) {
+                        type = Types.DOUBLE;
+                    } else {
+                        type = Types.INTEGER;
+                    }
                 } else {
                     type = Types.CHARACTER;
                 }

@@ -8,3 +8,5 @@
  */
 
 rootProject.name = 'inputlib'
+
+include "example"

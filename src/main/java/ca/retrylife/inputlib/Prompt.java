@@ -174,7 +174,7 @@ public class Prompt {
         while (true) {
 
             // Get input
-            int input = promptCharacter(String.format("%s%none of [%s] ", allowedIntsString.toString()), true);
+            int input = promptInteger(String.format("%s%none of [%s] ", prompt, allowedIntsString.toString()), true);
 
             // Check if the input is valid
             for (int i : allowedInts) {
@@ -194,7 +194,7 @@ public class Prompt {
         while (true) {
 
             // Get input
-            int input = promptCharacter(String.format("%s%nselect [%d...%d] ", min, max), true);
+            int input = promptInteger(String.format("%s%nselect [%d...%d] ",prompt, min, max), true);
 
             // Check if the input is valid
             if (min <= input && input <= max) {

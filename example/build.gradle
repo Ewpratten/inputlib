@@ -1,0 +1,18 @@
+plugins {
+    id "java"
+    id "application"
+}
+
+mainClassName = 'ca.retrylife.inputlib.examples.Example'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation project(":")
+}
+
+run{
+    standardInput = System.in
+}

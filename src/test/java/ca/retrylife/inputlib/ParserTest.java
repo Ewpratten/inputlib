@@ -21,6 +21,27 @@ public class ParserTest {
     }
 
     @Test
+    public void testEmptyStringParsing() {
+
+        // Parse a token
+        Token t = Parser.parseToToken("");
+
+        // Make sure the primary type, and data are correct
+        assertEquals("Primary Type", Types.STRING, t.getPrimaryType());
+        assertEquals("Value", "", t.getString());
+    }
+    @Test
+    public void testPeriodStringParsing() {
+
+        // Parse a token
+        Token t = Parser.parseToToken(".");
+
+        // Make sure the primary type, and data are correct
+        assertEquals("Primary Type", Types.STRING, t.getPrimaryType());
+        assertEquals("Value", ".", t.getString());
+    }
+
+    @Test
     public void testCharacterParsing() {
 
         // Parse a token
@@ -35,11 +56,11 @@ public class ParserTest {
     public void testIntegerParsing() {
 
         // Parse a token
-        Token t = Parser.parseToToken("100");
+        Token t = Parser.parseToToken("7");
 
         // Make sure the primary type, and data are correct
         assertEquals("Primary Type", Types.INTEGER, t.getPrimaryType());
-        assertEquals("Value", (Integer) 100, t.getInteger());
+        assertEquals("Value", (Integer) 7, t.getInteger());
     }
 
     @Test
