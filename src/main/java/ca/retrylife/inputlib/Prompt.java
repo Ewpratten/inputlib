@@ -54,6 +54,42 @@ public class Prompt {
         return promptString(prompt, false);
     }
 
+    public String promptMultiLineString(String prompt) {
+
+        // Print the user prompt
+        out.println(prompt);
+
+        // Print a message explaining how to use this
+        out.println("When finished, enter \".\" on a new line.");
+
+        // Handle line reading
+        StringBuilder totalInput = new StringBuilder();
+        while (true) {
+
+            // Get a line of input
+            Token input = promptToken("");
+
+            // Handle the line type
+            if (input.hasType(Types.STRING)) {
+
+                // Check if this is the last line
+                if (input.getString().equals(".")) {
+                    break;
+                }
+
+                // Add the line to the total input
+                totalInput.append(input.getString());
+            }
+
+            // Move to next line
+            totalInput.append("\n");
+
+        }
+
+        // Return the built string
+        return totalInput.toString();
+    }
+
     public char promptCharacter(String prompt, boolean oneLine) {
         return promptString(prompt, oneLine).charAt(0);
     }
@@ -168,6 +204,90 @@ public class Prompt {
             // Handle no valid input
             out.println("! Invalid selection");
         }
+    }
+
+    public String promptList(String title, String... options) {
+
+        // Build the options list
+        StringBuilder prompt = new StringBuilder();
+
+        // Add the title
+        prompt.append(title);
+        prompt.append(String.format(":%n"));
+
+        // Add every option
+        for (int i = 0; i < options.length; i++) {
+            prompt.append(String.format("  %d: %s%n", i, options[i]));
+        }
+
+        // Prompt for a range, and select the matching array element
+        return options[promptIntegerRangeSelection(prompt.toString(), 0, options.length - 1)];
+    }
+
+    public double promptDouble(String prompt, boolean oneLine) {
+
+        // Get a token, and its value until the data is valid
+        while (true) {
+
+            // Get input
+            Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
+
+            // If the input is valid, return
+            if (input.hasType(Types.DOUBLE) && input.getDouble() != null) {
+                return input.getDouble();
+            }
+
+            // Warn the user
+            out.println("! Must be a number");
+        }
+    }
+
+    public double promptDouble(String prompt) {
+        return promptDouble(prompt, false);
+    }
+
+    public float promptFloat(String prompt, boolean oneLine) {
+
+        // Get a token, and its value until the data is valid
+        while (true) {
+
+            // Get input
+            Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
+
+            // If the input is valid, return
+            if (input.hasType(Types.FLOAT) && input.getFloat() != null) {
+                return input.getFloat();
+            }
+
+            // Warn the user
+            out.println("! Must be a number");
+        }
+    }
+
+    public float promptFloat(String prompt) {
+        return promptFloat(prompt, false);
+    }
+
+    public boolean promptBoolean(String prompt, boolean oneLine) {
+
+        // Get a token, and its value until the data is valid
+        while (true) {
+
+            // Get input
+            Token input = promptToken(String.format(((oneLine) ? "%s" : "%s%n"), prompt));
+
+            // If the input is valid, return
+            if (input.hasType(Types.BOOLEAN) && input.getBoolean() != null) {
+                return input.getBoolean();
+            }
+
+            // Warn the user
+            out.println("! Must be a boolean");
+        }
+    }
+
+    public boolean promptBoolean(String prompt) {
+        return promptBoolean(prompt, false);
     }
 
     private Token parseToToken(String data) {
