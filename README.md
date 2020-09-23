@@ -86,3 +86,12 @@ String preference = myPrompt.promptList("Which is better", "cats", "dogs", "nerf
 ```
 
 Finally, the [`promptMultiLineString​`](https://ewpratten.retrylife.ca/inputlib/ca/retrylife/inputlib/Prompt.html#promptMultiLineString(java.lang.String)) function can be used to get a string from the user that spans multiple lines of input.
+
+## How to push a release
+
+Pushing a release is simple. Clone this repo, go to master, and run:
+
+```sh
+git tag -a <version> -m "<message>"
+git push origin <version>
+```
