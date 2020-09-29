@@ -7,7 +7,7 @@ InputLib is a small and easy-to-use Java library for working with text-based use
 Using this library with your program is quite simple. Here is a basic example for Gradle:
 
 
-*Stap 1.* Declare this maven server the end of your repositories block in *build.gradle*
+*Step 1.* Declare this maven server the end of your repositories block in *build.gradle*
 
 ```groovy
 repositories {
