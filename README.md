@@ -1,30 +1,30 @@
-# InputLib [![Maven Repository](https://ultralight.retrylife.ca:/api/artifact/ca.retrylife/inputlib/shield?d=ultralight.retrylife.ca)](https://ultralight.retrylife.ca/?a=inputlib&g=ca.retrylife) ![Build library](https://github.com/Ewpratten/inputlib/workflows/Build%20library/badge.svg)
+# InputLib 
+[![Documentation](https://img.shields.io/badge/-documentation-blue)](https://ewpratten.retrylife.ca/inputlib) ![Build library](https://github.com/Ewpratten/inputlib/workflows/Build%20library/badge.svg)
 
 InputLib is a small and easy-to-use Java library for working with text-based user inputs in a terminal. This library was originally built to drastically speed up my development time when working on those annoying "whats your name?" programs everyone seems to do in intro Computer Science courses. This repo contains "version 2", which is set up to handle more datatypes, has a faster parser (the old parser was ANTLR4-based), and provides a very simple interface.
 
-## Installation
+## Using in your project
 
-Using this library with your program is quite simple. Here is a basic example for Gradle:
-
-
-*Stap 1.* Declare this maven server the end of your repositories block in *build.gradle*
+**Step 1.** Add the RetryLife maven server to your `build.gradle` file:
 
 ```groovy
 repositories {
-    ...
-    maven { url 'https://ultralight.retrylife.ca:/maven' }
+    maven { 
+        name 'retrylife-release'
+        url 'https://release.maven.retrylife.ca/' 
+    }
 }
 ```
 
-*Step 2.* Add this artifact as a dependency
+**Step 2.** Add this library as a dependency:
 
 ```groovy
 dependencies {
-    implementation 'ca.retrylife:inputlib:<LATEST_VERSION>'
+    implementation 'ca.retrylife:inputlib:1.+'
+    implementation 'ca.retrylife:inputlib:1.+:sources'
+    implementation 'ca.retrylife:inputlib:1.+:javadoc'
 }
 ```
-
-See [ultralight.retrylife.ca](https://ultralight.retrylife.ca/?a=inputlib&g=ca.retrylife) for up-to-date examples in all major buildsystems.
 
 ## Usage
 
